@@ -1,32 +1,66 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoLogoYoutube } from "react-icons/io";
-import {IoSend} from "react-icons/io5"
+import { motion } from "framer-motion";
+import { IoSend } from "react-icons/io5"
 
 export default function Moto_Link() {
-  const [videoURL,setVideoURL] = useState("");
-
+  const [videoURL, setVideoURL] = useState("");
   const navigate = useNavigate(); // Initialize the useNavigate hook
-  function setVideo(){
-    if(videoURL !== ""){
-      localStorage.setItem("videoLink",videoURL);
+  function setVideo() {
+    if (videoURL !== "") {
+      localStorage.setItem("videoLink", videoURL);
       navigate('/chat');
     }
   }
 
   return (
-    <div className="w-full flex flex-col justify-center items-center md:p-9 mt-9">
+    <div className="w-full flex flex-col relative justify-center items-center p-2 md:p-9 mt-9">
       <div className="font-bold flex flex-col items-center gap-2 text-white mt-6">
-        <h1 className="text-3xl md:text-4xl lg:text-6xl text-center">Learn more from videos with AI</h1>
-        <h2 className="text-md md:text-xl lg:text-3xl text-center">
+        <motion.h1
+          variants={{
+            hidden: { opacity: 0, y: -100, filter: "blur(2px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0)" }
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+          className="text-3xl md:text-4xl lg:text-6xl text-center">Learn more from videos with AI
+        </motion.h1>
+        <motion.h2
+          variants={{
+            hidden: { opacity: 0, y: -100, filter: "blur(2px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0)" }
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1, delay: 0.3, ease: "easeInOut" }}
+          className="text-md md:text-xl lg:text-3xl text-center">
           Get a summary . Ask questions . Quiz yourself.
-        </h2>
+        </motion.h2>
       </div>
 
 
       <div className="w-full flex-1 h-full flex items-center flex-col">
-        <div className="font-semibold text-3xl text-gray-700 my-10">RecapAI</div>
-        <div className="w-full md:max-w-[600px] mb-6 relative border border-gray-600 rounded p-4 flex flex-col">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: -100, filter: "blur(2px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0)" }
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1, delay: 1, ease: "easeInOut" }}
+          className="font-semibold text-3xl text-gray-300 my-10">RecapAI
+        </motion.div>
+        <motion.div
+          variants={{
+            hidden: { opacity: 0,transform:"scale(0.6)", filter: "blur(2px)" },
+            visible: { opacity: 1,transform:"scale(1)", filter: "blur(0)" }
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1, delay: 1.5, ease: "easeInOut" }}
+          className="w-full md:max-w-[600px] mb-6 relative bg-gray-700/60 backdrop-blur border border-gray-600 rounded p-4 flex flex-col">
           <label
             htmlFor="input-group-1"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -48,7 +82,7 @@ export default function Moto_Link() {
               <IoSend />
             </button>
           </div>
-        </div>
+        </motion.div>
         {/* <div className="w-full md:max-w-[600px] relative border border-gray-600 rounded p-4 flex flex-col">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Summarize your project

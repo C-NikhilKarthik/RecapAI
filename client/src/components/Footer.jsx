@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../images/logo.jpg"
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
 export default function Footer() {
