@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { RiSendPlane2Fill } from "react-icons/ri";
-import { MdSummarize } from "react-icons/md"
 import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 
@@ -33,7 +32,7 @@ export default function Main() {
             if (response) {
                 setState((prevState) => ({
                     ...prevState,
-                    transcript: response.transcript,
+                    transcript: response,
                 }));
             }
         } catch (err) {
@@ -135,11 +134,11 @@ export default function Main() {
 
         setState((prevState) => ({
             ...prevState,
-            videoLink: savedVideoLink || "",
-            videoId: extractedVideoId || "",
+            videoLink: savedVideoLink,
+            videoId: extractedVideoId,
         }));
 
-        if (savedVideoLink) {
+        if (savedVideoLink !== null) {
             getTranscript(savedVideoLink);
         }
     }, [getTranscript]);

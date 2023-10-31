@@ -15,12 +15,14 @@ const getTranscript = async (req, res) => {
     try {
         const { videoURL } = req.body;
         const toTranscript = await transcript(videoURL);
+
         const result = await client.generateText({
             model: MODEL_NAME,
             prompt: {
               text: "Give me the following with correct punctuations and split it into multiple paragraphs." + toTranscript,
             },
           });
+          console.log(result);
           res.status(200).json(result[0].candidates[0].output);
     } catch (error) {
       res.status(500).json({ message: error.message });
