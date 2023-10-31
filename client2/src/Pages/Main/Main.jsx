@@ -152,7 +152,7 @@ export default function Main() {
                 <section className="flex h-full w-full flex-col justify-center items-center">
                     <div className="h-full w-full">
                         <div className="h-full bg-[#686882]/70 shadow-lg backdrop-blur flex flex-col overflow-hidden">
-                            <div className="w-full p-3 px-4 relative flex justify-between bg-slate-900">
+                            {/* <div className="w-full p-3 px-4 relative flex justify-between bg-slate-900">
                                 <div className="flex items-center">
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#EC6A5F]"></div>
                                     <div className="ml-1.5 w-2.5 h-2.5 rounded-full bg-[#F4BF50]"></div>
@@ -169,7 +169,7 @@ export default function Main() {
                                 <div className="absolute left-1/2 top-2 -translate-x-1/2">
                                     <div><div className="bg-slate-100 rounded-md font-medium text-xs leading-6 py-1 flex items-center justify-center ring-1 ring-inset ring-slate-900/5 mx-auto px-10 dark:bg-slate-800 dark:text-slate-500"><svg viewBox="0 0 20 20" fill="currentColor" className="text-slate-300 w-3.5 h-3.5 mr-1.5 dark:text-slate-500"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path></svg>NRAM.ai</div></div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <iframe
                                 className="w-full h-full"
@@ -195,7 +195,7 @@ export default function Main() {
                     <div className="flex gap-2">
                         <button type="button" className="bg-gray-700 text-slate-200 py-2 px-3 rounded-lg hover:shadow-sm hover:shadow-gray-600    " onClick={() => summarize(state.videoLink)}>Summarize</button>
                         <button type="button" className="bg-gray-700 text-slate-200 py-2 px-3 rounded-lg hover:shadow-sm hover:shadow-gray-600" onClick={() => genQuiz(state.videoLink)}>Generate Quiz</button>
-                    </div>  
+                    </div>
                 </div>
 
                 {/* conversation area */}
