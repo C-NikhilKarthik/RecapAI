@@ -6,7 +6,6 @@ const transcriptRoutes = require('./routes/transcript');
 const generativeRoutes = require('./routes/generative');
 require('dotenv').config();
 
-
 const app = express();
 
 app.use(morgan('combined'));
