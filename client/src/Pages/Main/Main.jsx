@@ -32,7 +32,7 @@ export default function Main() {
             if (response) {
                 setState((prevState) => ({
                     ...prevState,
-                    transcript: response,
+                    transcript: response.cohereAPIResult,
                 }));
             }
         } catch (err) {
@@ -53,7 +53,7 @@ export default function Main() {
             if (response) {
                 const updatedChat = [
                     ...state.chat,
-                    { question: "Summarize the video for me", answer: response },
+                    { question: "Summarize the video for me", answer: response.cohereAPIResult },
                 ];
 
                 setState((prevState) => ({
@@ -81,7 +81,7 @@ export default function Main() {
                 console.log(response)
                 const updatedChat = [
                     ...state.chat,
-                    { question: "Summarize the video for me", answer: response },
+                    { question: "Summarize the video for me", answer: response.cohereAPIResult },
                 ];
 
                 setState((prevState) => ({
@@ -110,7 +110,7 @@ export default function Main() {
                 // Update the chat item with both question and answer
                 const updatedChat = [
                     ...state.chat,
-                    { question: value, answer: response },
+                    { question: value, answer: response.cohereAPIResult },
                 ];
 
                 setState((prevState) => ({
