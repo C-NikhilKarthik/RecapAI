@@ -2,6 +2,11 @@ const transcript = require("../utilities/transcript");
 const axios = require('axios');
 const COHERE_API_TOKEN = "p57Ii2VsCWRzihocNtIl2yAiUQvO22euvjbaXECM";
 
+const OpenAI = require('openai');
+const openai = new OpenAI({
+  apiKey: "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"
+});
+
 const anyPrompt = async (req, res) => {
   try {
     const transcribedText = await transcript(req.body.videoURL);
