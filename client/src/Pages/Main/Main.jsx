@@ -34,7 +34,7 @@ export default function Main() {
                 console.log(response);
                 setState((prevState) => ({
                     ...prevState,
-                    transcript: response.cohereAPIResult,
+                    transcript: response.openaiAPIResult,
                 }));
             }
         } catch (err) {
@@ -55,7 +55,7 @@ export default function Main() {
             if (response) {
                 const updatedChat = [
                     ...state.chat,
-                    { question: "Summarize the video for me", answer: response.cohereAPIResult },
+                    { question: "Summarize the video for me", answer: response.openaiAPIResult },
                 ];
 
                 setState((prevState) => ({
@@ -83,7 +83,7 @@ export default function Main() {
                 console.log(response)
                 const updatedChat = [
                     ...state.chat,
-                    { question: "Generate a quiz based on the video for me", answer: response.cohereAPIResult },
+                    { question: "Generate a quiz based on the video for me", answer: response.openaiAPIResult },
                 ];
 
                 setState((prevState) => ({
@@ -115,7 +115,7 @@ export default function Main() {
                 // Update the chat item with both question and answer
                 const updatedChat = [
                     ...state.chat,
-                    { question: value, answer: response.cohereAPIResult },
+                    { question: value, answer: response.openaiAPIResult },
                 ];
 
                 setState((prevState) => ({
