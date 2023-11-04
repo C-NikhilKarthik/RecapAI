@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    font-family: 'Raleway', sans-serif;
-  }
-
 *::-webkit-scrollbar{
   display:none;
 }
