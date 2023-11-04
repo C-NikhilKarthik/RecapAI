@@ -16,9 +16,9 @@ app.use(cookieParser());
 
 // signin
 const login = async(req, res) => {
-    const fileStr = req.body;
-    EmailId = fileStr.email_login.trim();
-    Password = fileStr.password_login.trim();
+    let {email,password}=req.body;
+    EmailId = email.trim();
+    Password = password.trim();
 
     if (EmailId == "" || Password == "") {
         res.json({
@@ -32,11 +32,14 @@ const login = async(req, res) => {
         User.find({ EmailId })
             .then((data) => {
                 if (data) {
+                    console.log(Password);
+                    console.log(data)
                     //user exists
 
                     // Set a cookie with the user ID
                     res.cookie('userId',data[0].id);
                     const hashedPassword = data[0].Password;
+                    console.log(hashedPassword)
                     bcrypt.compare(Password, hashedPassword)
                         .then(async(result) => {
                             if (result) {
