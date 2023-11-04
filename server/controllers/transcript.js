@@ -1,25 +1,22 @@
 const transcript = require("../utilities/transcript");
-const axios = require('axios');
-const COHERE_API_TOKEN = "p57Ii2VsCWRzihocNtIl2yAiUQvO22euvjbaXECM";
+const OpenAI = require('openai');
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_KEY
+});
+
 const getTranscript = async (req, res) => {
     try {
         const { videoURL } = req.body;
         const toTranscript = await transcript(videoURL);
-        const cohereResponse = await axios.post('https://api.cohere.ai/v1/generate', {
-      truncate: 'END',
-      return_likelihoods: 'NONE',
-      prompt: "Give me the following with correct punctuations and split it into multiple paragraphs for better readability: " + toTranscript // Modify prompt here based on the use case
-    }, {
-      headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-        authorization: `Bearer ${COHERE_API_TOKEN}`
-      }
-    });
-
-    res.status(200).json({
-      cohereAPIResult: cohereResponse.data.generations[0].text
-    });
+        const chatCompletion = await openai.chat.completions.create({
+          messages: [{ role: 'user', content:"Add proper punctuations to the following piece of text and split it into multiple paragraphs for better readability: " + toTranscript }],
+          model: 'gpt-3.5-turbo',
+        });
+        
+    
+        res.status(200).json({
+          openaiAPIResult: chatCompletion.choices[0].message.content
+        });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
