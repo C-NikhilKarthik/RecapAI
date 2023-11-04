@@ -6,8 +6,8 @@ const morgan = require('morgan');
 const transcriptRoutes = require('./routes/transcript');
 const generativeRoutes = require('./routes/generative');
 const authRoutes = require('./routes/auth');
-require('dotenv').config();
-
+const env = require('./config/env');
+const router = require('./routes/router');
 const app = express();
 
 connectDb()
@@ -16,11 +16,15 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/transcript', transcriptRoutes);
-app.use('/generative', generativeRoutes);
-app.use('/auth', authRoutes);
+app.use('/api', router);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
-})
 
+app.listen(env.PORT, () => {
+    console.log(`Server running on port ${env.PORT}`);
+  });
+  
+  process.on('uncaughtException', error => {
+    console.log('Uncaught Exception: ', error);
+    // process.exit(1)
+  });
+  
