@@ -12,8 +12,7 @@ const getTranscript = async (req, res) => {
           messages: [{ role: 'user', content:"Add proper punctuations to the following piece of text and split it into multiple paragraphs for better readability: " + toTranscript }],
           model: 'gpt-3.5-turbo',
         });
-        
-    
+
         res.status(200).json({
           openaiAPIResult: chatCompletion.choices[0].message.content
         });
