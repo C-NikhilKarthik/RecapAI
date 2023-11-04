@@ -97,7 +97,7 @@ export default function Main() {
         }
     }
 
-    const promptResult = async (value,videoLink) => {
+    const promptResult = async (value, videoLink) => {
         try {
             const { response, error } = await sendReqToServer({
                 axiosInstance: axios,
@@ -120,7 +120,7 @@ export default function Main() {
 
                 setState((prevState) => ({
                     ...prevState,
-                    promptValue:"",
+                    promptValue: "",
                     chat: updatedChat,
                 }));
             }
@@ -132,7 +132,7 @@ export default function Main() {
 
     const getResult = async () => {
         // Call the promptResult function with the question
-        promptResult(state.promptValue,state.videoLink);
+        promptResult(state.promptValue, state.videoLink);
     };
 
     useEffect(() => {
@@ -152,7 +152,7 @@ export default function Main() {
     // Function to handle sending a message (you can implement your logic here)
 
     return (
-        <div className="w-screen h-screen overflow-hidden bg-gray-900 gap-1 p-2 flex">
+        <div className="w-screen h-screen overflow-hidden bg-gray-900 gap-1 p-2 flex font-light text-white">
             {/* youtube video and transcript */}
             <div className="h-full w-full overflow-hidden">
                 <section className="flex h-full w-full flex-col justify-center items-center">
@@ -167,7 +167,7 @@ export default function Main() {
 
                         </div>
                     </div>
-                    <div className="h-full border border-gray-500 text-justify mt-2 text-slate-200 w-full p-3 overflow-y-auto rounded bg-gray-800 shadow">
+                    <div className="h-full border border-gray-500 text-justify mt-2  w-full p-3 overflow-y-auto rounded bg-gray-700 shadow text-white">
                         {state.transcript}
                     </div>
                 </section>
@@ -188,8 +188,8 @@ export default function Main() {
                     <div className=""></div>
                     {state.chat.map((chatItem, index) => (
                         <div key={index}>
-                            <div className="py-3 w-full px-6 text-slate-200 bg-gray-800">{chatItem.question}</div>
-                            <div className="py-3 w-full px-6 text-slate-200 bg-transparent">{chatItem.answer}</div>
+                            <div className="py-3 w-full px-6 border-b-[0.1px] border-opacity-0">{chatItem.question}</div>
+                            <div className="py-3 w-full px-6  bg-transparent">{chatItem.answer}</div>
                         </div>
                     ))}
                 </div>
