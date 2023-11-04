@@ -1,7 +1,7 @@
 const transcript = require("../utilities/transcript");
 const OpenAI = require('openai');
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: process.env.OPENAI_KEY
 });
 
 const getTranscript = async (req, res) => {
