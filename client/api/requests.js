@@ -1,8 +1,8 @@
 const USER = {
-    getTranscript: "/transcript/getTranscript",
-    anyPrompt:"/generative/anyPrompt",
-    summarize:"/generative/summarize",
-    quiz:"/generative/quiz"
+    getTranscript: "/getTranscript",
+    anyPrompt:"/anyPrompt",
+    summarize:"/summarize",
+    quiz:"/quiz"
   };
 
 export {USER};
