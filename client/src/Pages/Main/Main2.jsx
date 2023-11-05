@@ -148,21 +148,21 @@ export default function Main2() {
 
     const getResult = async () => {
         // Call the promptResult function with the question
-        promptResult(state.promptValue, state.videoLink);
+        promptResult(state.promptValue, state.videoId);
     };
 
     useEffect(() => {
         const savedVideoLink = localStorage.getItem("videoLink");
         const extractedVideoId = extractVideoId(savedVideoLink);
-
+        console.log("Extracted video",extractedVideoId)
         setState((prevState) => ({
             ...prevState,
             videoLink: savedVideoLink,
             videoId: extractedVideoId,
         }));
 
-        if (savedVideoLink !== null) {
-            getTranscript(savedVideoLink);
+        if (extractedVideoId !== "") {
+            getTranscript(extractedVideoId);
         }
     }, [getTranscript]);
     // Function to handle sending a message (you can implement your logic here)
@@ -239,8 +239,8 @@ export default function Main2() {
                         <div className='text-white absolute top-0 bg-[#2F3136] shadow-md items-center left-0 w-full p-2 flex justify-between'>
                             <div>Chat with AI</div>
                             <div className='flex gap-2'>
-                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => summarize(state.videoLink)}>Summarize</button>
-                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => genQuiz(state.videoLink)}>Generate Quiz</button>
+                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => summarize(state.videoId)}>Summarize</button>
+                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => genQuiz(state.videoId)}>Generate Quiz</button>
                             </div>
                         </div>
                         <div className="w-full pb-24 pt-12 text-slate-400 overflow-y-auto flex-1 h-full mt-4">

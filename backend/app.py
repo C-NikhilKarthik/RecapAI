@@ -1,10 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from controllers.main_controller import main_controller
 from controllers.transcript_controller import transcript_controller
 from controllers.generative_controller import generative_controller
 from controllers.timestamp_controller import timestamp_controller
 app = Flask(__name__)
-
+CORS(app)  # Enable CORS for the entire app
 app.register_blueprint(main_controller)
 app.register_blueprint(transcript_controller)
 app.register_blueprint(generative_controller)
