@@ -1,36 +1,34 @@
-<<<<<<< HEAD
-import { useCallback, useEffect, useState, useRef } from 'react';
-// import ProgressBar from 'react-bootstrap/ProgressBar';
-=======
 import { useCallback, useEffect, useState } from 'react';
->>>>>>> 289f4df1c425ebe211cb5e406808b8e5e03da0c6
 import { IoInformationCircle } from 'react-icons/io5'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 import SplitPane, { Pane } from 'split-pane-react';
+import { MagnifyingGlass } from "react-loader-spinner"
 import Modal from '@mui/material/Modal';
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
 
 export default function Main2() {
-<<<<<<< HEAD
-    const videoRef = useRef(null);
 
-    function setVideoStartTime(startTimeInSeconds,videoId) {
+    function setVideoStartTime(startTimeInSeconds, videoId) {
         const videoFrame = document.getElementById("videoFrame");
         const currentSrc = videoFrame.getAttribute("src");
         console.log(currentSrc)
         // const videoId = currentSrc.match(/[?&]v=([^&]+)/);
-    
+
         // if (videoId) {
-            const newSrc = `http://www.youtube.com/embed/${videoId}?start=${startTimeInSeconds}`;
-            console.log(newSrc)
-            videoFrame.setAttribute("src", newSrc);
+        const newSrc = `http://www.youtube.com/embed/${videoId}?start=${startTimeInSeconds}`;
+        console.log(newSrc)
+        videoFrame.setAttribute("src", newSrc);
         // }
     }
-=======
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState({
+        intro: true,
+        allPrompts: true,
+        transcript: true,
+    });
     const handleOpen = () => {
         setOpen(true);
         document.getElementById('rootDiv').style.filter = 'blur(2px)';
@@ -39,7 +37,6 @@ export default function Main2() {
         setOpen(false);
         document.getElementById('rootDiv').style.filter = 'blur(0px)';
     };
->>>>>>> 289f4df1c425ebe211cb5e406808b8e5e03da0c6
 
     const [state, setState] = useState({
         videoId: "",
@@ -68,7 +65,7 @@ export default function Main2() {
         justifyContent: 'center',
     };
 
-    const getIntro = async (videoLink) => {
+    const getIntro = useCallback(async (videoLink) => {
         try {
             const { response } = await sendReqToServer({
                 axiosInstance: axios,
@@ -80,6 +77,10 @@ export default function Main2() {
             });
 
             if (response) {
+                setLoading((prevState) => ({
+                    ...prevState,
+                    intro: false
+                }))
                 console.log(response.timestamps);
                 setState((prevState) => ({
                     ...prevState,
@@ -89,7 +90,8 @@ export default function Main2() {
         } catch (err) {
             console.error(err);
         }
-    }
+
+    }, [])
 
     const getTranscript = useCallback(async (videoLink) => {
         try {
@@ -103,7 +105,10 @@ export default function Main2() {
             });
 
             if (response) {
-
+                setLoading((prevState) => ({
+                    ...prevState,
+                    transcript: false
+                }))
                 console.log(response);
                 setState((prevState) => ({
                     ...prevState,
@@ -219,10 +224,14 @@ export default function Main2() {
         }));
 
         if (extractedVideoId !== "") {
+            console.log('used effect')
             getTranscript(extractedVideoId);
             getIntro(extractedVideoId);
         }
-    }, []);
+    }, [
+        getIntro,
+        getTranscript
+    ]);
     // Function to handle sending a message (you can implement your logic here)
 
     // if(state.videoId !== "") getIntro(state.videoId);
@@ -253,15 +262,31 @@ export default function Main2() {
                                 <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => genQuiz(state.videoId)}>Generate Quiz</button>
                             </div>
                         </div>
-                        <div className="w-full pb-24 pt-12 text-slate-400 overflow-y-auto text-justify flex-1 h-full mt-4">
-                            <div className="py-2 w-full px-6 bg-transparent">
-                            {Object.entries(state.intro).map(([sentence, data]) => (
-                                <div key={sentence}>
-                                    <p onClick={() => {console.log("hi");setVideoStartTime(data.start_time,state.videoId)}}>{sentence}</p>
-                                    <p>Duration: {data.duration} seconds</p>
-                                    <p>Start Time: {data.start_time} seconds</p>
+                        <div className="w-full pb-24 pt-12 text-slate-400 flex flex-col items-center overflow-y-auto text-justify flex-1 h-full mt-4">
+                            {loading.intro && (
+                                <div className="w-full md:max-w-[600px] mb-6 relative bg-[#383a40] backdrop-blur border border-gray-600 rounded p-2 flex flex-col">
+                                    <div className='flex text-slate-300 items-center gap-3'>
+                                        <MagnifyingGlass
+                                            visible={true}
+                                            height="40"
+                                            width="40"
+                                            ariaLabel="MagnifyingGlass-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="MagnifyingGlass-wrapper"
+                                            glassColor='#c0efff'
+                                            color='#e15b64'
+                                        />
+                                        <p>Transcribing Video...</p>
+                                    </div>
+
                                 </div>
-                            ))}
+                            )}
+                            <div className="py-2 w-full px-6 bg-transparent">
+                                {Object.entries(state.intro).map(([sentence, data]) => (
+                                    <div key={sentence}>
+                                        <li onClick={() => { console.log("hi"); setVideoStartTime(data.start_time, state.videoId) }}>{sentence}</li>
+                                    </div>
+                                ))}
                             </div>
                             {state.chat.map((chatItem, index) => (
                                 <div key={index}>
@@ -297,7 +322,6 @@ export default function Main2() {
                         <div className=" p-2 gap-2 h-full w-full flex flex-col bg-[#2b2d31] rounded-md justify-between">
                             <div className='w-full flex-none border-2 border-solid overflow-hidden border-white rounded-lg'>
                                 <iframe
-                                    ref={videoRef}
                                     id="videoFrame"
                                     className="w-full aspect-video"
                                     src={`https://www.youtube.com/embed/${state.videoId}`}
@@ -306,9 +330,31 @@ export default function Main2() {
                                 ></iframe>
                             </div>
                             <div className='flex h-full overflow-hidden text-slate-300'>
-                                <div className='overflow-y-auto text-justify w-full'>
-                                    {state.transcript}
-                                </div>
+                                {loading.transcript && (
+                                    <div className="w-full mb-6 relative bg-[#222429] backdrop-blur h-fit border border-gray-600 rounded p-2 flex flex-col">
+                                        <div className='flex text-slate-300 items-center gap-3'>
+                                            <MagnifyingGlass
+                                                visible={true}
+                                                height="40"
+                                                width="40"
+                                                ariaLabel="MagnifyingGlass-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="MagnifyingGlass-wrapper"
+                                                glassColor='#c0efff'
+                                                color='#e15b64'
+                                            />
+                                            <p>Generating Transcript...</p>
+                                        </div>
+
+                                    </div>
+                                )}
+                                {
+                                    !loading.transcript && (
+                                        <div className='overflow-y-auto text-justify w-full'>
+                                            {state.transcript}
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
