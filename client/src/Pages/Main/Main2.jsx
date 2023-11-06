@@ -8,12 +8,6 @@ import Modal from '@mui/material/Modal';
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
 
-const modelStyle = {
-    overlay: {
-        backgroundColor: 'rgba(255, 255, 255, 0.65)',
-        filter: 'blur(35px)',
-    },
-}
 export default function Main2() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
