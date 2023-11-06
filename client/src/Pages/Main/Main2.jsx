@@ -1,13 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { IoArrowUpOutline, IoInformationCircle } from 'react-icons/io5'
+import { IoInformationCircle } from 'react-icons/io5'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 import SplitPane, { Pane } from 'split-pane-react';
+import Modal from '@mui/material/Modal';
 import 'split-pane-react/esm/themes/default.css'
+import AboutDiv from '../../components/About';
 
 export default function Main2() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+        document.getElementById('rootDiv').style.filter = 'blur(2px)';
+    };
+    const handleClose = () => {
+        setOpen(false);
+        document.getElementById('rootDiv').style.filter = 'blur(0px)';
+    };
+
     const [state, setState] = useState({
         videoId: "",
         videoLink: "",
@@ -154,7 +165,7 @@ export default function Main2() {
     useEffect(() => {
         const savedVideoLink = localStorage.getItem("videoLink");
         const extractedVideoId = extractVideoId(savedVideoLink);
-        console.log("Extracted video",extractedVideoId)
+        console.log("Extracted video", extractedVideoId)
         setState((prevState) => ({
             ...prevState,
             videoLink: savedVideoLink,
@@ -168,10 +179,16 @@ export default function Main2() {
     // Function to handle sending a message (you can implement your logic here)
 
     return (
-        <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1">
+        <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1" id="rootDiv">
             <div className=" pr-4 flex flex-initial justify-between items-center bg-[#222528] rounded-md text-white text-lg font-bold">
                 <h1 className='p-3'>RecapAI</h1>
-                <div className='text-2xl'><IoInformationCircle /></div>
+                <div className='text-2xl cursor-pointer' onClick={handleOpen}><IoInformationCircle /></div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <AboutDiv />
+                </Modal>
             </div>
             {/* <div className="flex h-[80%] flex-auto justify-between gap-1">
                 <div className="w-[70%] flex-1 relative p-2 h-full bg-[#2F3136] rounded-md flex flex-col justify-between ">
