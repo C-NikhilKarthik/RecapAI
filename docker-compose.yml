@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      OPENAI_KEY: ${OPENAI_KEY}
+    ports:
+      - "5000:5000"  # Map container port to host port
+    volumes:
+      - ./backend:/app  # This line mounts your local directory to the container (useful for development)
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Map container port to host port
