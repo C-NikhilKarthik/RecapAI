@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 import { useCallback, useEffect, useState, useRef } from 'react';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
+=======
+import { useCallback, useEffect, useState } from 'react';
+>>>>>>> 289f4df1c425ebe211cb5e406808b8e5e03da0c6
 import { IoInformationCircle } from 'react-icons/io5'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 import SplitPane, { Pane } from 'split-pane-react';
+import Modal from '@mui/material/Modal';
 import 'split-pane-react/esm/themes/default.css'
+import AboutDiv from '../../components/About';
 
 export default function Main2() {
+<<<<<<< HEAD
     const videoRef = useRef(null);
 
     function setVideoStartTime(startTimeInSeconds,videoId) {
@@ -22,6 +29,17 @@ export default function Main2() {
             videoFrame.setAttribute("src", newSrc);
         // }
     }
+=======
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+        document.getElementById('rootDiv').style.filter = 'blur(2px)';
+    };
+    const handleClose = () => {
+        setOpen(false);
+        document.getElementById('rootDiv').style.filter = 'blur(0px)';
+    };
+>>>>>>> 289f4df1c425ebe211cb5e406808b8e5e03da0c6
 
     const [state, setState] = useState({
         videoId: "",
@@ -210,10 +228,16 @@ export default function Main2() {
     // if(state.videoId !== "") getIntro(state.videoId);
 
     return (
-        <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1">
+        <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1" id="rootDiv">
             <div className=" pr-4 flex flex-initial justify-between items-center bg-[#222528] rounded-md text-white text-lg font-bold">
                 <h1 className='p-3'>RecapAI</h1>
-                <div className='text-2xl'><IoInformationCircle /></div>
+                <div className='text-2xl cursor-pointer' onClick={handleOpen}><IoInformationCircle /></div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <AboutDiv />
+                </Modal>
             </div>
             <SplitPane
                 split='vertical'
