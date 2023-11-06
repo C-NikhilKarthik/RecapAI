@@ -7,6 +7,13 @@ import { IoSend } from "react-icons/io5"
 export default function Moto_Link() {
   const [videoURL, setVideoURL] = useState("");
   const navigate = useNavigate(); // Initialize the useNavigate hook
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setVideo(); // Trigger the request when Enter key is pressed
+    }
+  };
+
   function setVideo() {
     if (videoURL !== "") {
       localStorage.setItem("videoLink", videoURL);
@@ -77,6 +84,7 @@ export default function Moto_Link() {
               onChange={(e) => { setVideoURL(e.target.value) }}
               className="border border-gray-300 focus:shadow-md focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-opacity-0 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 focus:border-gray-400 dark:placeholder-gray-400 dark:text-white"
               placeholder="https://www.youtube.com/watch?v"
+              onKeyPress={handleKeyPress}
             />
             <button onClick={() => setVideo()} className="p-2 absolute right-2 text-gray-500 hover:text-gray-400" type="button">
               <IoSend />
