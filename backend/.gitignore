@@ -1,3 +1,6 @@
 venv
 env
 .env
+/controllers/__pycache__
+/utilities/__pycache__
+```
