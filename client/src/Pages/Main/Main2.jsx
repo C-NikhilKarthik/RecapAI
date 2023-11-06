@@ -186,7 +186,6 @@ export default function Main2() {
                 <Modal
                     open={open}
                     onClose={handleClose}
-                    style={modelStyle}
                 >
                     <AboutDiv />
                 </Modal>
