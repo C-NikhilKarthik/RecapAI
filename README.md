@@ -2,6 +2,8 @@
 ## Project Description
 Recap AI is built on Generative AI technology, designed to deliver transcripts for YouTube videos while seamlessly integrating a real-time chatbot. This innovative tool allow users to ask any questions related to the content of the video, enabling a dynamic and interactive viewing experience.  Additionally, the chatbot can generate quiz questions and provide concise summaries of the video, enhancing the overall viewing experience. Whether you're a student looking for a quick recap of a lecture or a curious learner seeking deeper insights, Recap AI simplifies and enhances the way we engage with video content on YouTube.
 
+The project is deployed on: ```https://devpostxdocker.netlify.app/```
+
 For this project, we use three main technologies: ReactJS, Python, and Docker. ReactJS helps create the user interface you interact with, Python handles the 'brain' of the project, and Docker ensures everything works smoothly when we make the project live.
 
 ## Contibuting
