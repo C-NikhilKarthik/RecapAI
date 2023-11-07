@@ -9,6 +9,7 @@ import { ClipLoader, HashLoader } from "react-spinners";
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
 import Logo from "../../images/Logo.png"
+import { Link } from 'react-router-dom';
 
 export default function Main2() {
 
@@ -262,11 +263,11 @@ export default function Main2() {
     return (
         <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1" id="rootDiv">
             <div className=" pr-4 flex flex-initial justify-between items-center bg-[#222528] rounded-md text-white text-lg font-bold">
-                <img
+                <Link to="/"><img
                     src={Logo}
                     alt="logo"
                     className="h-[50px]"
-                />
+                /></Link>
                 <div className='text-2xl cursor-pointer' onClick={handleOpen}><IoInformationCircle /></div>
                 <Modal
                     open={open}
