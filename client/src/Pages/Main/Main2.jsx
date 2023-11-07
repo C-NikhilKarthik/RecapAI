@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 import {HashLoader} from "react-spinners";
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
+import { Link } from 'react-router-dom';
 
 export default function Main2() {
 
@@ -239,7 +240,7 @@ export default function Main2() {
     return (
         <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1" id="rootDiv">
             <div className=" pr-4 flex flex-initial justify-between items-center bg-[#222528] rounded-md text-white text-lg font-bold">
-                <h1 className='p-3'>RecapAI</h1>
+                <Link to='/'><h1 className='p-3'>RecapAI</h1></Link>
                 <div className='text-2xl cursor-pointer' onClick={handleOpen}><IoInformationCircle /></div>
                 <Modal
                     open={open}
