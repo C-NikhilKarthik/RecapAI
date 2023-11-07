@@ -1,4 +1,4 @@
-import Logo from "../images/logo.jpg"
+import Logo from "../images/Logo.png"
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
 export default function Footer() {
   return (
@@ -9,11 +9,8 @@ export default function Footer() {
         <img
           src={Logo}
           alt="logo"
-          className="h-[40px] w-[40px] lg:h-[50px] lg:w-[50px] rounded-full  "
+          className="h-[50px]"
         />
-        <h1 className="text-3xl lg:text-4xl font-bold text-white hidden md:block">
-          RecapAI
-        </h1>
       </div>
       <div className="flex flex-col justify-center items-center text-white text-sm">
         <div className="flex items-center gap-1">
