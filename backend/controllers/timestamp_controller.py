@@ -29,7 +29,7 @@ def timestamp():
     # Check if the transcript is already cached, and if not, transcribe the video
     cached_transcript = transcript(video_url)
 
-    user_message = cached_transcript + "Extract five important sentences from the given transcript that would be valuable for a viewer and return them in a python list."
+    user_message = cached_transcript + "Extract ten important sentences from the given transcript that would be valuable for a viewer and return them in a python list."
 
     chat_completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -59,7 +59,7 @@ def timestamp():
         
         if best_match:
             # Convert start_time to an integer
-            start_time = int(best_match["start"])
+            start_time = int(best_match["start"]) - 1
             matches[sentence1] = {"start": start_time, "duration": best_match["duration"]}
 
     # Now 'matches' contains matched sentences with start times

@@ -4,8 +4,8 @@ import { RiSendPlane2Fill } from 'react-icons/ri'
 import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 import SplitPane, { Pane } from 'split-pane-react';
-import { MagnifyingGlass } from "react-loader-spinner"
 import Modal from '@mui/material/Modal';
+import {HashLoader} from "react-spinners";
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
 
@@ -266,16 +266,7 @@ export default function Main2() {
                             {loading.intro && (
                                 <div className="w-full md:max-w-[600px] mb-6 relative bg-[#383a40] backdrop-blur border border-gray-600 rounded p-2 flex flex-col">
                                     <div className='flex text-slate-300 items-center gap-3'>
-                                        <MagnifyingGlass
-                                            visible={true}
-                                            height="40"
-                                            width="40"
-                                            ariaLabel="MagnifyingGlass-loading"
-                                            wrapperStyle={{}}
-                                            wrapperClass="MagnifyingGlass-wrapper"
-                                            glassColor='#c0efff'
-                                            color='#e15b64'
-                                        />
+                                        <HashLoader color="#699be0" size={25} />
                                         <p>Transcribing Video...</p>
                                     </div>
 
@@ -284,7 +275,7 @@ export default function Main2() {
                             <div className="py-2 w-full px-6 bg-transparent">
                                 {Object.entries(state.intro).map(([sentence, data]) => (
                                     <div key={sentence}>
-                                        <li onClick={() => { console.log("hi"); setVideoStartTime(data.start_time, state.videoId) }}>{sentence}</li>
+                                        <li className='cursor-pointer' onClick={() => { console.log("hi"); setVideoStartTime(data.start_time, state.videoId) }}>{sentence}</li>
                                     </div>
                                 ))}
                             </div>
@@ -333,19 +324,9 @@ export default function Main2() {
                                 {loading.transcript && (
                                     <div className="w-full mb-6 relative bg-[#222429] backdrop-blur h-fit border border-gray-600 rounded p-2 flex flex-col">
                                         <div className='flex text-slate-300 items-center gap-3'>
-                                            <MagnifyingGlass
-                                                visible={true}
-                                                height="40"
-                                                width="40"
-                                                ariaLabel="MagnifyingGlass-loading"
-                                                wrapperStyle={{}}
-                                                wrapperClass="MagnifyingGlass-wrapper"
-                                                glassColor='#c0efff'
-                                                color='#e15b64'
-                                            />
+                                            <HashLoader color="#699be0" size={25} />
                                             <p>Generating Transcript...</p>
                                         </div>
-
                                     </div>
                                 )}
                                 {
