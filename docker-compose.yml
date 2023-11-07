@@ -2,19 +2,15 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ashishlal2003/recapai-backend:latest  # Ensure the repository and tag are correct
     environment:
-      OPENAI_KEY: ${OPENAI_KEY}
+      - OPENAI_KEY:${OPENAI_KEY}
     ports:
-      - "5000:5000"  # Map container port to host port
+      - "5000:5000"
     volumes:
-      - ./backend:/app  # This line mounts your local directory to the container (useful for development)
+      - ./backend:/app
 
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: ashishlal2003/recapai-client:latest  # Ensure the repository and tag are correct
     ports:
-      - "3000:3000"  # Map container port to host port
+      - "3000:3000"
