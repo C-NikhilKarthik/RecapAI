@@ -5,11 +5,18 @@ import { sendReqToServer } from "../../../api/useAxios";
 import { USER, axios } from "../../../api";
 import SplitPane, { Pane } from 'split-pane-react';
 import Modal from '@mui/material/Modal';
-import {HashLoader} from "react-spinners";
+import { ClipLoader, HashLoader } from "react-spinners";
 import 'split-pane-react/esm/themes/default.css'
 import AboutDiv from '../../components/About';
+import Logo from "../../images/Logo.png"
 
 export default function Main2() {
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+          getResult(); // Trigger the request when Enter key is pressed
+        }
+      };
 
     function setVideoStartTime(startTimeInSeconds, videoId) {
         const videoFrame = document.getElementById("videoFrame");
@@ -26,7 +33,7 @@ export default function Main2() {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState({
         intro: true,
-        allPrompts: true,
+        allPrompts: false,
         transcript: true,
     });
     const handleOpen = () => {
@@ -131,6 +138,10 @@ export default function Main2() {
                 },
             });
             if (response) {
+                setLoading((prevState) => ({
+                    ...prevState,
+                    allPrompts: false
+                }))
                 const updatedChat = [
                     ...state.chat,
                     { question: "Summarize the video for me", answer: response.openaiAPIResult },
@@ -159,6 +170,10 @@ export default function Main2() {
             });
             if (response) {
                 console.log(response)
+                setLoading((prevState) => ({
+                    ...prevState,
+                    allPrompts: false
+                }))
                 const updatedChat = [
                     ...state.chat,
                     { question: "Generate a quiz based on the video for me", answer: response.openaiAPIResult },
@@ -190,6 +205,10 @@ export default function Main2() {
             console.log(response);
 
             if (response) {
+                setLoading((prevState) => ({
+                    ...prevState,
+                    allPrompts: false
+                }))
                 // Update the chat item with both question and answer
                 const updatedChat = [
                     ...state.chat,
@@ -209,6 +228,10 @@ export default function Main2() {
     };
 
     const getResult = async () => {
+        setLoading((prevState) => ({
+            ...prevState,
+            allPrompts: true
+        }))
         // Call the promptResult function with the question
         promptResult(state.promptValue, state.videoId);
     };
@@ -239,7 +262,11 @@ export default function Main2() {
     return (
         <div className="p-1 justify-between overflow-hidden w-screen h-screen flex flex-col bg-[#1e1f22] gap-1" id="rootDiv">
             <div className=" pr-4 flex flex-initial justify-between items-center bg-[#222528] rounded-md text-white text-lg font-bold">
-                <h1 className='p-3'>RecapAI</h1>
+                <img
+                    src={Logo}
+                    alt="logo"
+                    className="h-[50px]"
+                />
                 <div className='text-2xl cursor-pointer' onClick={handleOpen}><IoInformationCircle /></div>
                 <Modal
                     open={open}
@@ -258,8 +285,18 @@ export default function Main2() {
                         <div className='text-white absolute top-0 bg-[#2F3136] shadow-md items-center left-0 w-full p-2 flex justify-between'>
                             <div>Chat with AI</div>
                             <div className='flex gap-2'>
-                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => summarize(state.videoId)}>Summarize</button>
-                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => genQuiz(state.videoId)}>Generate Quiz</button>
+                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => {
+                                    summarize(state.videoId); setLoading((prevState) => ({
+                                        ...prevState,
+                                        allPrompts: true
+                                    }))
+                                }}>Summarize</button>
+                                <button type="button" className="text-slate-300 p-2 rounded-lg hover:shadow-sm hover:text-gray-200" onClick={() => {
+                                    genQuiz(state.videoId); setLoading((prevState) => ({
+                                        ...prevState,
+                                        allPrompts: true
+                                    }))
+                                }}>Generate Quiz</button>
                             </div>
                         </div>
                         <div className="w-full pb-24 pt-12 text-slate-400 flex flex-col items-center overflow-y-auto text-justify flex-1 h-full mt-4">
@@ -279,12 +316,21 @@ export default function Main2() {
                                     </div>
                                 ))}
                             </div>
+
                             {state.chat.map((chatItem, index) => (
-                                <div key={index}>
+                                <div key={index} className='w-full'>
                                     <div className="py-2 w-full px-6 text-slate-100 font-semibold">{chatItem.question}</div>
                                     <div className="py-2 w-full px-6 bg-transparent">{chatItem.answer}</div>
                                 </div>
                             ))}
+
+                            {loading.allPrompts && (
+                                <div className='w-full my-10 flex justify-center'>
+                                    <ClipLoader color="#a6a6a6" size={25} />
+                                </div>
+                            )}
+
+
                         </div>
                         <div className="w-full flex flex-col p-4 bg-gradient-to-t from-[#2F3136] via-[#2F3136] to-transparent pt-20 absolute bottom-0 left-0">
 
@@ -299,7 +345,10 @@ export default function Main2() {
                                         ...prevState,
                                         promptValue: e.target.value
                                     }));
-                                }} id="voice-search" className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-[#383b41] dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Send a Message" required />
+                                }} 
+                                id="voice-search" 
+                                onKeyPress={handleKeyPress}
+                                className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-[#383b41] dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Send a Message" required />
                                 <button type="button" onClick={getResult} className="absolute inset-y-0 right-0 flex items-center pr-3">
                                     <RiSendPlane2Fill className="text-gray-400" />
                                 </button>
